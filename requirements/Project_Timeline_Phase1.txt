@@ -1,0 +1,76 @@
+# 🎯 Project Timeline Plan — "Virtual Pet Portfolio Project"
+
+### Assumption:
+- You're working on this part-time (student / side project pace)
+- Goal is to finish within ~4-5 weeks for something polished but realistic
+
+---
+
+## Week 1 — Finish Desktop MVP (Feature Freeze)
+
+| Task | Details |
+|------|---------|
+| Finalize Core Features | Feed / Play / Rest / Stats / Mood logic / Cooldowns |
+| UI Polish | Clean Layout / Progress Bars / Personality Responses |
+| Data Persistence | Local save/load JSON |
+| Pet-to-Pet Interaction | Finalize logic + cooldown bar sync |
+| Bug Fixing | Edge cases / UX polish |
+
+### Deliverable:
+- Fully functional Desktop App `.exe` ready to record demo
+
+---
+
+## Week 2 — Packaging & Desktop Demo Recording
+
+| Task | Details |
+|------|---------|
+| Prepare for PyInstaller Build | Organize folders / assets / requirements.txt |
+| Package to `.exe` | Generate distributable version for Windows |
+| Record Demo | Short video: Showcase all key features |
+| Create Screenshots / GIFs | For portfolio display |
+
+---
+
+## Week 3 — Start Web Demo (Lite Version)
+
+| Task | Details |
+|------|---------|
+| Setup Web Project | React.js (Vite / Next.js) + Tailwind CSS |
+| Core UI Pages | Home Page / Pet List / Pet Details |
+| Implement Pet Logic | Feed / Play / Rest / Mood (basic logic, frontend only) |
+| Local Storage for Data | `localStorage` or mock API for pet state persistence |
+
+---
+
+## Week 4 — Web Deployment & Portfolio Site
+
+| Task | Details |
+|------|---------|
+| Polish Web App | UI styling / Interaction Log / Responsive Design |
+| Deploy Web App | GitHub Pages / Vercel free hosting |
+| Build Portfolio Page | Markdown README / GitHub repo / Portfolio site section |
+
+---
+
+## Stretch Goal (Optional Week 5)
+
+| Task | Details |
+|------|---------|
+| Web Backend API | Simple FastAPI backend (save/load pets) |
+| User Login | Firebase / Supabase Auth |
+| Cloud Save | Store pet data online |
+| Deploy API | Free tier hosting (Render / Railway / Supabase) |
+
+---
+
+# Deliverable Summary for Portfolio:
+
+| Item | Output |
+|------|--------|
+| Desktop Demo | `.exe` file + Demo Video + Screenshots |
+| Web Demo | Live Link (Vercel / Netlify) |
+| Source Code | Clean, documented GitHub repo (Desktop + Web) |
+| Portfolio Page | Project Summary, Features, Tech Stack, Live Demo, Video Demo |
+
+---

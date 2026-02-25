@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+.vscode/
+.cursor/
+
+# Local data files (optional; comment out if you want sample data tracked)
+# data/pets.json
+
