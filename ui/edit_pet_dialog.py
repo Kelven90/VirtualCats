@@ -1,4 +1,12 @@
-from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QComboBox, QPushButton
+from PySide6.QtWidgets import (
+    QDialog,
+    QVBoxLayout,
+    QLabel,
+    QLineEdit,
+    QComboBox,
+    QPushButton,
+)
+
 
 class EditPetDialog(QDialog):
     def __init__(self, pet):
@@ -10,7 +18,9 @@ class EditPetDialog(QDialog):
 
         self.name_input = QLineEdit(pet.name)
         self.personality_input = QComboBox()
-        self.personality_input.addItems(["Affectionate", "Playful", "Lazy", "Curious", "Shy", "Aggressive"])
+        self.personality_input.addItems(
+            ["Affectionate", "Playful", "Lazy", "Curious", "Shy", "Aggressive"]
+        )
         index = self.personality_input.findText(pet.personality.capitalize())
         if index != -1:
             self.personality_input.setCurrentIndex(index)
@@ -28,7 +38,4 @@ class EditPetDialog(QDialog):
         self.save_button.clicked.connect(self.accept)
 
     def get_updated_info(self):
-        return (
-            self.name_input.text(),
-            self.personality_input.currentText().lower()
-        )
+        return (self.name_input.text(), self.personality_input.currentText().lower())

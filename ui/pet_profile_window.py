@@ -1,6 +1,14 @@
 from PySide6.QtWidgets import (
-    QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton,
-    QProgressBar, QMessageBox, QSpacerItem, QSizePolicy, QFrame
+    QWidget,
+    QLabel,
+    QVBoxLayout,
+    QHBoxLayout,
+    QPushButton,
+    QProgressBar,
+    QMessageBox,
+    QSpacerItem,
+    QSizePolicy,
+    QFrame,
 )
 from PySide6.QtCore import Qt, QTimer, QRect
 from PySide6.QtGui import QPixmap
@@ -18,8 +26,7 @@ class PetProfileWindow(QWidget):
         self.setWindowTitle(f"{pet.name}'s Profile")
         self.setFixedSize(750, 500)
         self.setObjectName("profileWindow")
-        self.setStyleSheet(
-            """
+        self.setStyleSheet("""
             QWidget#profileWindow {
                 background-color: qlineargradient(
                     x1: 0, y1: 0, x2: 1, y2: 1,
@@ -82,8 +89,7 @@ class PetProfileWindow(QWidget):
             QProgressBar#energyBar::chunk {
                 background-color: #facc15;
             }
-            """
-        )
+            """)
 
         # Progress bars
         self.hunger_bar = QProgressBar()
@@ -109,7 +115,9 @@ class PetProfileWindow(QWidget):
         self.state_label.setAlignment(Qt.AlignCenter)
 
         # Sprite
-        sprite_path = f"assets/PetMobileGameAsset/Cats/RetroCats/{self.pet.sprite_name}.png"
+        sprite_path = (
+            f"assets/PetMobileGameAsset/Cats/RetroCats/{self.pet.sprite_name}.png"
+        )
         pixmap = QPixmap(sprite_path)
 
         frame_width = 64
@@ -159,7 +167,9 @@ class PetProfileWindow(QWidget):
         info_layout.addWidget(self.rest_button)
         info_layout.addWidget(self.relationships_label)
         info_layout.addWidget(self.relationships_info)
-        info_layout.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        info_layout.addSpacerItem(
+            QSpacerItem(0, 0, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        )
 
         info_card = QFrame()
         info_card.setObjectName("infoCard")
@@ -213,7 +223,9 @@ class PetProfileWindow(QWidget):
         self.state_label.setText(f"State: {self.pet.state}")
 
         if self.pet.relationships:
-            lines = [f"- {name}: {score}" for name, score in self.pet.relationships.items()]
+            lines = [
+                f"- {name}: {score}" for name, score in self.pet.relationships.items()
+            ]
             self.relationships_info.setText("\n".join(lines))
         else:
             self.relationships_info.setText("No relationships yet.")
@@ -221,22 +233,29 @@ class PetProfileWindow(QWidget):
     def interact_with_pet(self, action):
         if self.cooldowns[action]:
             QMessageBox.information(
-                self, "Slow down!",
-                self.get_personality_prefix() + f"{self.pet.name} needs a moment before {action} again."
+                self,
+                "Slow down!",
+                self.get_personality_prefix()
+                + f"{self.pet.name} needs a moment before {action} again.",
             )
             return
 
         if self.pet.sleeping:
             QMessageBox.information(
-                self, "Sleeping...",
-                f"{self.pet.name} is sleeping and won't respond right now. 😴"
+                self,
+                "Sleeping...",
+                f"{self.pet.name} is sleeping and won't respond right now. 😴",
             )
             return
 
         if action == "feed":
             if self.pet.hunger < 20:
-                QMessageBox.information(self, "Too Full",
-                    self.get_personality_prefix() + f"{self.pet.name} is already full! 🍽️")
+                QMessageBox.information(
+                    self,
+                    "Too Full",
+                    self.get_personality_prefix()
+                    + f"{self.pet.name} is already full! 🍽️",
+                )
                 return
             self.pet.feed()
             # After feeding, pet calms down to idle
@@ -244,8 +263,12 @@ class PetProfileWindow(QWidget):
 
         elif action == "play":
             if self.pet.energy < 20:
-                QMessageBox.information(self, "Too Tired",
-                    self.get_personality_prefix() + f"{self.pet.name} is too tired to play. 😴")
+                QMessageBox.information(
+                    self,
+                    "Too Tired",
+                    self.get_personality_prefix()
+                    + f"{self.pet.name} is too tired to play. 😴",
+                )
                 return
             self.pet.play()
             # Playing explicitly sets a playful state
@@ -253,8 +276,12 @@ class PetProfileWindow(QWidget):
 
         elif action == "rest":
             if self.pet.energy > 90:
-                QMessageBox.information(self, "Too Energized",
-                    self.get_personality_prefix() + f"{self.pet.name} is already well-rested! ⚡")
+                QMessageBox.information(
+                    self,
+                    "Too Energized",
+                    self.get_personality_prefix()
+                    + f"{self.pet.name} is already well-rested! ⚡",
+                )
                 return
             self.pet.rest()
             # Resting moves the pet into a sleeping/resting state
@@ -293,7 +320,7 @@ class PetProfileWindow(QWidget):
         button = {
             "feed": self.feed_button,
             "play": self.play_button,
-            "rest": self.rest_button
+            "rest": self.rest_button,
         }.get(action)
 
         if button:

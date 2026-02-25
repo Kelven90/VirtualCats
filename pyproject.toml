@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+extend-exclude = "venv"
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+extend-exclude = ["venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B"]
+# Ignore line-length (E501) because of long UI strings and paths.
+ignore = ["E501"]
+

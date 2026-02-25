@@ -1,6 +1,17 @@
 from PySide6.QtWidgets import (
-    QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QListWidget, QMessageBox,
-    QAbstractItemView, QTextEdit, QLineEdit, QFrame, QMainWindow, QSizePolicy, QMenu
+    QWidget,
+    QLabel,
+    QVBoxLayout,
+    QHBoxLayout,
+    QPushButton,
+    QListWidget,
+    QMessageBox,
+    QAbstractItemView,
+    QTextEdit,
+    QLineEdit,
+    QMainWindow,
+    QSizePolicy,
+    QMenu,
 )
 from PySide6.QtCore import QTimer, Qt, QPoint
 from PySide6.QtGui import QPixmap
@@ -23,7 +34,7 @@ STATE_TO_ANIMATION = {
     "playing": ["dancing", "box_headup"],
     "praying": ["praying_closed", "praying_open"],
     "collapsed": ["collapse_open", "collapse_closed"],
-    "waking": ["waking"]
+    "waking": ["waking"],
 }
 
 
@@ -35,8 +46,7 @@ class MainWindow(QMainWindow):
         self.current_background = self.config.get("background", "1.png")
 
         self.resize(900, 600)
-        self.setStyleSheet(
-            """
+        self.setStyleSheet("""
             QWidget {
                 font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
                 font-size: 10pt;
@@ -85,8 +95,7 @@ class MainWindow(QMainWindow):
             QLineEdit:focus {
                 border-color: #4c7df0;
             }
-            """
-        )
+            """)
 
         self.pets = load_pets()
         self.pet_sprites = {}
@@ -109,7 +118,9 @@ class MainWindow(QMainWindow):
 
         self.background_label = QLabel()
         self.background_label.setScaledContents(True)
-        self.background_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.background_label.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Expanding
+        )
         scene_layout.addWidget(self.background_label)
         self.set_background(self.current_background)
 
@@ -181,7 +192,12 @@ class MainWindow(QMainWindow):
             }
         """
 
-        for btn in (self.add_pet_button, self.edit_pet_button, self.settings_button, self.empty_adopt_button):
+        for btn in (
+            self.add_pet_button,
+            self.edit_pet_button,
+            self.settings_button,
+            self.empty_adopt_button,
+        ):
             btn.setStyleSheet(primary_style)
             btn.setCursor(Qt.PointingHandCursor)
 
@@ -218,7 +234,9 @@ class MainWindow(QMainWindow):
         self.animation_timer = QTimer(self, timeout=self.update_pet_sprites)
         self.animation_timer.start(500)
 
-        self.animation_variation_timer = QTimer(self, timeout=self.rotate_pet_animations)
+        self.animation_variation_timer = QTimer(
+            self, timeout=self.rotate_pet_animations
+        )
         self.animation_variation_timer.start(30000)
 
         self.refresh_pet_list()
@@ -248,7 +266,7 @@ class MainWindow(QMainWindow):
         dialog = SettingsDialog(
             selected_background=self.current_background,
             set_background_callback=self.set_background,
-            parent=self
+            parent=self,
         )
         dialog.exec()
 
@@ -262,8 +280,6 @@ class MainWindow(QMainWindow):
             save_config(self.config)  # ← persist it
         else:
             self.background_label.clear()
-
-
 
     def refresh_pet_list(self):
         query = self.search_input.text().lower()
@@ -301,7 +317,9 @@ class MainWindow(QMainWindow):
         sprite_height = 96  # Known sprite display height (adjust if you change it)
 
         for idx, pet in enumerate(self.pets):
-            sprite_path = f"assets/PetMobileGameAsset/Cats/RetroCats/{pet.sprite_name}.png"
+            sprite_path = (
+                f"assets/PetMobileGameAsset/Cats/RetroCats/{pet.sprite_name}.png"
+            )
 
             sprite = PetSprite(
                 sprite_path=sprite_path,
@@ -321,7 +339,6 @@ class MainWindow(QMainWindow):
             sprite.show()
             sprite.clicked.connect(self.open_pet_profile_from_sprite)
             self.pet_sprites[pet.name] = sprite
-
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -351,7 +368,7 @@ class MainWindow(QMainWindow):
         key = pet._current_animation_key
         if key and key in config_dict:
             config = config_dict[key]
-            #print(f"[ANIM] Pet: {pet.name}, State: {pet.state}, Using animation: {key}")
+            # print(f"[ANIM] Pet: {pet.name}, State: {pet.state}, Using animation: {key}")
             sprite.set_animation(config)
         else:
             print(f"[WARN] No animation found for Pet: {pet.name}, State: {pet.state}")
@@ -379,13 +396,14 @@ class MainWindow(QMainWindow):
         dialog = AddPetDialog()
         if dialog.exec():
             name, species, personality, color = dialog.get_pet_info()
-            sprite_name = f"AllCats{'' if color == 'BrownWhite' else color}"  # handle default
+            sprite_name = (
+                f"AllCats{'' if color == 'BrownWhite' else color}"  # handle default
+            )
             new_pet = VirtualPet(name, species, personality, sprite_name)
             self.pets.append(new_pet)
             save_pets(self.pets)
             self.refresh_pet_list()
             self.refresh_pet_scene()
-
 
     def edit_selected_pet(self):
         selected = self.pet_list.selectedItems()
@@ -400,7 +418,6 @@ class MainWindow(QMainWindow):
             pet.personality = personality
             save_pets(self.pets)
             self.refresh_pet_list()
-        
 
     def delete_selected_pet(self):
         selected = self.pet_list.selectedItems()
@@ -416,7 +433,7 @@ class MainWindow(QMainWindow):
             self,
             "Delete Pet",
             f"Are you sure you want to delete {removed_name}? This cannot be undone.",
-            QMessageBox.Yes | QMessageBox.No
+            QMessageBox.Yes | QMessageBox.No,
         )
 
         if reply == QMessageBox.No:
@@ -460,7 +477,9 @@ class MainWindow(QMainWindow):
         index = self.pet_list.row(item)
         pet = self.pets[index]
         self.pet_list.setCurrentRow(index)
-        self.profile_window = PetProfileWindow(pet, self.pets, on_stats_changed=self.handle_pet_stats_changed)
+        self.profile_window = PetProfileWindow(
+            pet, self.pets, on_stats_changed=self.handle_pet_stats_changed
+        )
         self.profile_window.show()
 
     def open_pet_profile_from_sprite(self, pet):
@@ -468,7 +487,9 @@ class MainWindow(QMainWindow):
             return
         index = self.pets.index(pet)
         self.pet_list.setCurrentRow(index)
-        self.profile_window = PetProfileWindow(pet, self.pets, on_stats_changed=self.handle_pet_stats_changed)
+        self.profile_window = PetProfileWindow(
+            pet, self.pets, on_stats_changed=self.handle_pet_stats_changed
+        )
         self.profile_window.show()
 
     def handle_pet_stats_changed(self):
@@ -516,7 +537,6 @@ class MainWindow(QMainWindow):
         save_pets(self.pets)
         self.refresh_pet_scene()
         self.refresh_pet_list()
-
 
     def closeEvent(self, event):
         save_pets(self.pets)

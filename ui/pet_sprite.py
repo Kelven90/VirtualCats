@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QPixmap, QPainter
 from PySide6.QtCore import Qt, QTimer, QRect, Signal
 
+
 class PetSprite(QWidget):
     clicked = Signal(object)
 
@@ -59,7 +60,6 @@ class PetSprite(QWidget):
         self.timer.start(interval)
         self.update_animation()
 
-
     def update_animation(self):
         if not self.multi_row_frames:
             return
@@ -68,8 +68,13 @@ class PetSprite(QWidget):
         x = col * self.frame_width
         y = row * self.frame_height
 
-        if x + self.frame_width <= self.sprite_sheet.width() and y + self.frame_height <= self.sprite_sheet.height():
-            cropped = self.sprite_sheet.copy(QRect(x, y, self.frame_width, self.frame_height))
+        if (
+            x + self.frame_width <= self.sprite_sheet.width()
+            and y + self.frame_height <= self.sprite_sheet.height()
+        ):
+            cropped = self.sprite_sheet.copy(
+                QRect(x, y, self.frame_width, self.frame_height)
+            )
             self.current_pixmap = cropped
 
         self.multi_row_index += 1
@@ -84,7 +89,9 @@ class PetSprite(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        scaled = self.current_pixmap.scaled(self.width(), self.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        scaled = self.current_pixmap.scaled(
+            self.width(), self.height(), Qt.KeepAspectRatio, Qt.SmoothTransformation
+        )
         x_offset = (self.width() - scaled.width()) // 2
         y_offset = (self.height() - scaled.height()) // 2
         painter.drawPixmap(x_offset, y_offset, scaled)

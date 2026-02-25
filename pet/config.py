@@ -1,8 +1,10 @@
-import json, os
+import json
+import os
 
 CONFIG_DIR = "data"
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 DEFAULT_CONFIG = {"background": "1.png"}
+
 
 def load_config():
     if not os.path.exists(CONFIG_FILE):
@@ -10,8 +12,9 @@ def load_config():
     try:
         with open(CONFIG_FILE, "r") as f:
             return json.load(f)
-    except:
+    except (OSError, json.JSONDecodeError):
         return DEFAULT_CONFIG.copy()
+
 
 def save_config(config):
     os.makedirs(CONFIG_DIR, exist_ok=True)

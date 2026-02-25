@@ -1,10 +1,18 @@
 # ui/settings_dialog.py
 
-from PySide6.QtWidgets import QDialog, QLabel, QVBoxLayout, QScrollArea, QFrame, QHBoxLayout
+from PySide6.QtWidgets import (
+    QDialog,
+    QLabel,
+    QVBoxLayout,
+    QScrollArea,
+    QFrame,
+    QHBoxLayout,
+)
 from PySide6.QtGui import QPixmap, QCursor
 from PySide6.QtCore import Qt
 
 import os
+
 
 class SettingsDialog(QDialog):
     def __init__(self, selected_background, set_background_callback, parent=None):
@@ -28,8 +36,12 @@ class SettingsDialog(QDialog):
 
         for i in range(1, 21):
             filename = f"{i}.png"
-            full_path = os.path.join("assets", "PetMobileGameAsset", "Backgrounds", filename)
-            pixmap = QPixmap(full_path).scaled(100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            full_path = os.path.join(
+                "assets", "PetMobileGameAsset", "Backgrounds", filename
+            )
+            pixmap = QPixmap(full_path).scaled(
+                100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation
+            )
 
             thumb = QLabel()
             thumb.setPixmap(pixmap)
@@ -58,4 +70,5 @@ class SettingsDialog(QDialog):
             self.set_background_callback(filename)
             for fname, label in self.thumbnail_labels.items():
                 label.setStyleSheet(self.get_style(fname))
+
         return handler

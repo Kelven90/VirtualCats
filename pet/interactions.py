@@ -1,5 +1,6 @@
 import random
 
+
 def process_interaction(pet1, pet2):
     """Handles cat-cat interactions based on personality and relationship."""
     if pet1.species != "cat" or pet2.species != "cat":
@@ -12,7 +13,9 @@ def process_interaction(pet1, pet2):
     if "affectionate" in personalities:
         pet1.adjust_stat("happiness", +5)
         pet2.adjust_stat("happiness", +5)
-        message = f"{pet1.name} cuddled up next to {pet2.name}. So warm and fuzzy. 🐱💞🐱"
+        message = (
+            f"{pet1.name} cuddled up next to {pet2.name}. So warm and fuzzy. 🐱💞🐱"
+        )
 
     # Playful + Playful
     elif pet1.personality == "playful" and pet2.personality == "playful":
@@ -20,7 +23,9 @@ def process_interaction(pet1, pet2):
         pet2.adjust_stat("energy", -5)
         pet1.adjust_stat("happiness", +8)
         pet2.adjust_stat("happiness", +8)
-        message = f"{pet1.name} and {pet2.name} pounced and tumbled around playfully! 🐱🎾🐱"
+        message = (
+            f"{pet1.name} and {pet2.name} pounced and tumbled around playfully! 🐱🎾🐱"
+        )
 
     # Playful + Shy
     elif "playful" in personalities and "shy" in personalities:
@@ -45,7 +50,9 @@ def process_interaction(pet1, pet2):
     else:
         pet1.adjust_stat("hunger", +3)
         pet2.adjust_stat("hunger", +3)
-        message = f"{pet1.name} looked at {pet2.name}... then started licking their paw. 🐱✨"
+        message = (
+            f"{pet1.name} looked at {pet2.name}... then started licking their paw. 🐱✨"
+        )
 
     # Relationship impact
     for a, b in [(pet1, pet2), (pet2, pet1)]:

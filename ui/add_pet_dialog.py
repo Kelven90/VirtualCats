@@ -12,14 +12,14 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 
+
 class AddPetDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Adopt New Cat")
         self.setFixedSize(320, 230)
         self.setObjectName("addPetDialog")
-        self.setStyleSheet(
-            """
+        self.setStyleSheet("""
             QDialog#addPetDialog {
                 background-color: #f7f5ff;
                 font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -53,8 +53,7 @@ class AddPetDialog(QDialog):
             QPushButton#adoptButton:pressed {
                 background-color: #3b63c5;
             }
-            """
-        )
+            """)
 
         layout = QVBoxLayout()
         layout.setContentsMargins(18, 18, 18, 18)
@@ -92,7 +91,9 @@ class AddPetDialog(QDialog):
 
         # Adopt button
         button_row = QHBoxLayout()
-        button_row.addSpacerItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum))
+        button_row.addSpacerItem(
+            QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        )
         self.button = QPushButton("Adopt")
         self.button.setObjectName("adoptButton")
         self.button.clicked.connect(self.adopt)
@@ -104,7 +105,9 @@ class AddPetDialog(QDialog):
     def adopt(self):
         name = self.name_input.text().strip()
         if not name:
-            QMessageBox.warning(self, "Missing Name", "Please enter a name for your cat.")
+            QMessageBox.warning(
+                self, "Missing Name", "Please enter a name for your cat."
+            )
             return
         self.accept()
 

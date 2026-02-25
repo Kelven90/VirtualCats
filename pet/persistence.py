@@ -6,11 +6,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "..", "data", "pets.json")
 
+
 def save_pets(pets):
     data = [pet.to_dict() for pet in pets]
 
     with open(DATA_PATH, "w") as f:
         json.dump(data, f, indent=4)
+
 
 def load_pets():
     if not os.path.exists(DATA_PATH) or os.path.getsize(DATA_PATH) == 0:
@@ -36,8 +38,7 @@ def load_pets():
             pd.get("energy", 50),
             pd.get("relationships", {}),
             pd.get("sleeping", False),
-            pd.get("state", "idle")
+            pd.get("state", "idle"),
         )
         pets.append(pet)
     return pets
-

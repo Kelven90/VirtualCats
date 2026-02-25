@@ -1,6 +1,17 @@
 class VirtualPet:
-    def __init__(self, name, species, personality, sprite_name, hunger=50, happiness=50, energy=50, 
-                 relationships=None, sleeping=False, state="idle"):
+    def __init__(
+        self,
+        name,
+        species,
+        personality,
+        sprite_name,
+        hunger=50,
+        happiness=50,
+        energy=50,
+        relationships=None,
+        sleeping=False,
+        state="idle",
+    ):
         self.name = name
         self.species = species
         self.personality = personality
@@ -13,7 +24,6 @@ class VirtualPet:
         self.state = state
         self._current_animation_key = None
         self._last_state = state
-
 
     def feed(self):
         self.adjust_stat("hunger", -10)
@@ -51,5 +61,5 @@ class VirtualPet:
             "energy": self.energy,
             "relationships": self.relationships,
             "sleeping": self.sleeping,
-            "state": self.state
+            "state": self.state,
         }
