@@ -95,6 +95,32 @@ This will launch the main window where you can:
 
 ---
 
+## Development: tests & tooling
+
+If you want to run the tests or contribute changes, install the dev dependencies as well:
+
+```bash
+pip install -r dev-requirements.txt
+```
+
+Then you can run:
+
+```bash
+ruff check .        # Lint
+black .             # Format
+pytest              # Run tests
+```
+
+The tests currently cover:
+
+- `VirtualPet` stat clamping and `mood()` logic.
+- Personality-based cat interactions in `process_interaction`.
+- A simple save/load round-trip for `data/pets.json`.
+
+GitHub Actions is configured (in `.github/workflows/ci.yml`) to run **ruff**, **black --check**, and **pytest** on every push and pull request to `main`.
+
+---
+
 ## Data & assets
 
 - **Cats data**: `data/pets.json`  
